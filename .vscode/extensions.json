@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "eamodio.gitlens",
+    "GitHub.vscode-pull-request-github",
+    "mhutchie.git-graph",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker",
+    "bradlc.vscode-tailwindcss",
+    "aaron-bond.better-comments",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "alefragnani.project-manager"
+  ]
+}

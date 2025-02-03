@@ -1,0 +1,33 @@
+module.exports = {
+  root: true,
+  env: { browser: true, es2020: true },
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
+    'airbnb',
+    'airbnb/hooks',
+    'airbnb-typescript',
+    'prettier',
+  ],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+  },
+  plugins: ['react-refresh'],
+  rules: {
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'react/react-in-jsx-scope': 'off',
+    'react/button-has-type': 'off',
+    'react/jsx-one-expression-per-line': 'off',
+    'jsx-a11y/control-has-associated-label': 'off',
+    'import/prefer-default-export': 'off',
+    'no-param-reassign': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
+  },
+}
