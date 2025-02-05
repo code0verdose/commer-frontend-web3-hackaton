@@ -10,7 +10,7 @@ export function HomePage() {
   return (
     <>
       <ConnectWalletModal opened={opened} onClose={close} />
-      <Layout>
+      <Layout className="px-16 py-8">
         <Layout.Header
           connect={open}
           disconnect={disconnectAndSignOut}
