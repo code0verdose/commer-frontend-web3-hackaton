@@ -1,8 +1,11 @@
 import { Constants } from '@shared/lib'
 import { Stores } from '@shared/service'
 import { AuthTokens, BaseApiResponse } from '@shared/types'
+import { QueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+
+export const queryClient = new QueryClient()
 
 const instance = axios.create({
   baseURL: Constants.BASE_API_URL,

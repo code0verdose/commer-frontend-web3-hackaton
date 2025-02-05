@@ -34,6 +34,17 @@
       rgba(142, 147, 248, 0.15) 94.43%
     );
   }
+
+  .button-gradient {
+    background: linear-gradient(94deg, #4c60e7 3.57%, #8e93f8 94.43%, #4c60e7 96%);
+    background-size: 200% 100%;
+    background-position: 0% 0%;
+    transition: background-position 0.5s ease;
+  }
+
+  .button-gradient:hover {
+    background-position: 90% 0%;
+  }
 }
 
 @layer utilities {

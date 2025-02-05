@@ -13,6 +13,7 @@ export default defineConfig({
       '@widgets': path.resolve(__dirname, './src/widgets'),
       '@units': path.resolve(__dirname, './src/units'),
       '@shared': path.resolve(__dirname, './src/shared'),
+      '@web3': path.resolve(__dirname, './src/web3'),
     },
   },
 })

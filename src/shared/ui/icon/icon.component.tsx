@@ -6,7 +6,7 @@ const IconNames = {
 
 export type IconTypes = keyof typeof IconNames
 
-export interface Props extends React.SVGAttributes<SVGElement> {
+interface Props extends React.SVGAttributes<SVGElement> {
   name: IconTypes
 }
 

@@ -6,7 +6,11 @@ export function Button(props: Props) {
   const { type = 'button', className, children, ...otherProps } = props
 
   return (
-    <button type={type} className={clsx('cursor-pointer', className)} {...otherProps}>
+    <button
+      type={type}
+      className={clsx('cursor-pointer text-white', className)}
+      {...otherProps}
+    >
       {children}
     </button>
   )

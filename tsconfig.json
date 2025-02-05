@@ -28,7 +28,7 @@
       "@widgets/*": ["src/widgets/*"],
       "@units/*": ["src/units/*"],
       "@shared/*": ["src/shared/*"],
-      "@shared": ["src/shared"]
+      "@web3/*": ["src/web3/*"]
     }
   },
   "include": ["src"],
