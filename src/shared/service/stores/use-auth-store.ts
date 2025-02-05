@@ -1,7 +1,7 @@
 import { Enums } from '@shared/lib'
 import { create } from 'zustand'
 
-type TAuthStore = {
+type AuthStore = {
   accessToken: string | null
   refreshToken: string | null
   setupTokens: () => void
@@ -9,7 +9,7 @@ type TAuthStore = {
   resetTokens: () => void
 }
 
-export const useAuthStore = create<TAuthStore>()((set) => ({
+export const useAuthStore = create<AuthStore>()((set) => ({
   accessToken: null,
   refreshToken: null,
   setupTokens: () =>

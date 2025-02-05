@@ -1,20 +1,20 @@
 import React from 'react'
 
-const IconTypes = {
-  unistory: React.lazy(() => import('./assets/unistory.svg?react')),
+const IconNames = {
+  logo: React.lazy(() => import('./assets/logo.svg?react')),
 } as const
 
-export type TIconTypes = keyof typeof IconTypes
+export type IconTypes = keyof typeof IconNames
 
-export type IIconProps = React.SVGAttributes<SVGElement> & {
-  name: TIconTypes
+export interface Props extends React.SVGAttributes<SVGElement> {
+  name: IconTypes
 }
 
-export function Icon(props: IIconProps) {
+export function Icon(props: Props) {
   const { name, ...otherProps } = props
 
   const IconComponent = React.useMemo(
-    () => IconTypes[name] as React.FunctionComponent<React.SVGProps<SVGSVGElement>>,
+    () => IconNames[name] as React.FunctionComponent<React.SVGProps<SVGSVGElement>>,
     [name],
   )
 

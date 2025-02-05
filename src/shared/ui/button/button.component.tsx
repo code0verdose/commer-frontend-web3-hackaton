@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 
-type TButtonProps = React.ComponentPropsWithoutRef<'button'>
+interface Props extends React.ComponentPropsWithoutRef<'button'> {}
 
-export function Button(props: TButtonProps) {
+export function Button(props: Props) {
   const { type = 'button', className, children, ...otherProps } = props
 
   return (
