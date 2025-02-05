@@ -1,5 +1,5 @@
 import { Layout } from '@widgets/layout'
-import { Banner } from './ui'
+import { Banner, BotsSection } from './ui'
 
 export function HomePage() {
   return (
@@ -7,7 +7,7 @@ export function HomePage() {
       <Layout.Header />
       <Layout.Main>
         <Banner className="mt-8" />
-        <h1>Hello world</h1>
+        <BotsSection className="mt-12" />
       </Layout.Main>
       <Layout.Footer />
     </Layout>

@@ -25,3 +25,23 @@
     @apply text-white/40;
   }
 }
+
+@layer components {
+  .bot-card-gradient {
+    background: linear-gradient(
+      94deg,
+      rgba(76, 96, 231, 0.15) 3.57%,
+      rgba(142, 147, 248, 0.15) 94.43%
+    );
+  }
+}
+
+@layer utilities {
+  .scrollbar-hidden {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+  }
+}

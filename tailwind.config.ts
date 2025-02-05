@@ -34,7 +34,15 @@ export default {
         4.5: '1.125rem',
         5.5: '1.375rem',
       },
-      animation: {},
+      animation: {
+        marquee: 'marquee 15s linear infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+      },
     },
   },
   plugins: [],
