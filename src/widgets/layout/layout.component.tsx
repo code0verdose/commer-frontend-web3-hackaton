@@ -7,7 +7,7 @@ export function Layout(props: LayoutProps) {
   const { className, children, ...otherProps } = props
 
   return (
-    <div className={clsx('grid-rows-layout grid min-h-dvh', className)} {...otherProps}>
+    <div className={clsx('min-h-dvh px-16 py-8', className)} {...otherProps}>
       {children}
     </div>
   )
