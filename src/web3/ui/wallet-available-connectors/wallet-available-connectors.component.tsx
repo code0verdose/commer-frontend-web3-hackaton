@@ -13,7 +13,7 @@ export function WalletAvailableConnectors(props: Props) {
   const connectors = getConnectors(Web3Config.wagmiConfig)
   return (
     <div {...otherProps}>
-      <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
         {connectors.map((connector: Connector) => (
           <SharedUi.Button
             key={connector.uid}
