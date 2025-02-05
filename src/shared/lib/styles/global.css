@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    /* (16px / SCREEN WIDTH) x 100  ||  SCREEN WIDTH = 1440px from figma frame) */
+    font-size: 1.11111111111vw;
+  }
+
+  body {
+    @apply font-sans;
+    @apply bg-background;
+  }
+
+  /* prettier-ignore */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+    @apply text-white;
+  }
+  p {
+    @apply font-normal;
+    @apply text-white/40;
+  }
+}

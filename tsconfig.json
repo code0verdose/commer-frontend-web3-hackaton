@@ -26,8 +26,7 @@
       "@app/*": ["src/app/*"],
       "@pages/*": ["src/pages/*"],
       "@widgets/*": ["src/widgets/*"],
-      "@features/*": ["src/features/*"],
-      "@entities/*": ["src/entities/*"],
+      "@units/*": ["src/units/*"],
       "@shared/*": ["src/shared/*"],
       "@shared": ["src/shared"]
     }
