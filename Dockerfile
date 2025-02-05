@@ -1,4 +1,4 @@
-FROM --platform=amd64 node:16-alpine as builder
+FROM --platform=amd64 node:20-alpine as builder
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ COPY ./ .
 RUN npm ci \
   && npm run build:$build_env
 
-FROM --platform=amd64 node:16-alpine
+FROM --platform=amd64 node:20-alpine
 
 WORKDIR /app
 
