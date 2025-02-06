@@ -16,11 +16,7 @@ interface Props extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> 
 export function BotSettingsForm(props: Props) {
   const { onSubmit, className, ...otherProps } = props
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<BotSettingsFormData>({
+  const { control, handleSubmit } = useForm<BotSettingsFormData>({
     resolver: zodResolver(BotService.Schemas.botSettingsValidationSchema),
     defaultValues: {
       name: '',
