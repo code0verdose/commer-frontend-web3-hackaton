@@ -21,7 +21,7 @@ export function Card(props: Props) {
     <article
       className={clsx(
         'hover:bot-card-gradient flex min-w-96 cursor-pointer flex-col gap-y-6 overflow-hidden rounded-3xl border border-solid border-transparent bg-ui p-8',
-        isSelected && 'bot-card-gradient !border-brand',
+        isSelected && 'bot-card-gradient hover:bot-card-gradient !border-gradient-3xl',
         className,
       )}
       {...otherProps}
@@ -31,7 +31,7 @@ export function Card(props: Props) {
           title={title}
           className="hover:truncate-none group truncate text-2xl font-semibold"
         >
-          <span className="hover:animate-marquee left-0 block whitespace-nowrap text-white">
+          <span className="left-0 block whitespace-nowrap text-white hover:animate-marquee">
             {title}
           </span>
         </h3>

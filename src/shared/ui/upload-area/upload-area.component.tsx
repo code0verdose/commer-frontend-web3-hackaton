@@ -1,4 +1,4 @@
-import { SharedUi } from '@shared/index'
+import { SharedLib, SharedUi } from '@shared/index'
 import clsx from 'clsx'
 import { ChangeEvent, DragEvent, useId, useState } from 'react'
 
@@ -15,6 +15,8 @@ interface UploadAreaProps {
   acceptedTypes?: string[]
   maxFileSize?: number
   className?: string
+  label?: string
+  showAcceptedTypes?: boolean
 }
 
 export function UploadArea({
@@ -22,6 +24,8 @@ export function UploadArea({
   acceptedTypes = [...ACCEPTED_FILE_TYPES.images, ...ACCEPTED_FILE_TYPES.documents],
   maxFileSize = ACCEPTED_FILE_TYPES.maxSize,
   className,
+  label,
+  showAcceptedTypes = true,
 }: UploadAreaProps) {
   const [isDragging, setIsDragging] = useState(false)
   const [error, setError] = useState<FileValidationError>(null)
@@ -93,61 +97,70 @@ export function UploadArea({
   }
 
   return (
-    <div
-      className={clsx(
-        'border-gradient flex items-center justify-between rounded-xl p-6',
-        isDragging && 'bg-brand/10',
-        selectedFileName && 'button-gradient-light',
-        className,
-      )}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-    >
-      <div className="flex items-center gap-x-3">
-        <SharedUi.Icon className="size-11" name="upload" />
-        <div>
-          <p>Drag your file to start uploading or choose from computer</p>
-          {selectedFileName && (
-            <p className="text-sm text-gray-600">
-              Selected file:{' '}
-              <button
-                type="button"
-                className="cursor-pointer hover:line-through"
-                onClick={clearFile}
-              >
-                {selectedFileName}
-              </button>
-            </p>
-          )}
-          {error === 'size' && (
-            <p className="text-red-500 text-sm">
-              File size exceeds {maxFileSize / 1024 / 1024}MB limit
-            </p>
-          )}
-          {error === 'format' && (
-            <p className="text-red-500 text-sm">
-              Unsupported file format. Accepted formats: {acceptedTypes.join(', ')}
-            </p>
-          )}
+    <div className="flex flex-col gap-y-6">
+      {label && <p className="text-2xl font-semibold text-white">{label}</p>}
+      <div
+        className={clsx(
+          'border-gradient flex items-center justify-between rounded-xl p-6',
+          isDragging && 'bg-brand/10',
+          selectedFileName && 'button-gradient-light',
+          className,
+        )}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
+        <div className="flex items-center gap-x-3">
+          <SharedUi.Icon className="size-11" name="upload" />
+          <div className="overflow-hidden">
+            <p>Drag your file to start uploading or choose from computer</p>
+            {selectedFileName && (
+              <p className="text-sm text-gray-600">
+                Selected file:{' '}
+                <button
+                  type="button"
+                  className="cursor-pointer hover:line-through"
+                  onClick={clearFile}
+                >
+                  {SharedLib.Utils.shortenFileName(selectedFileName, 30)}
+                </button>
+              </p>
+            )}
+            {error === 'size' && (
+              <p className="text-red-500 text-sm">
+                File size exceeds {maxFileSize / 1024 / 1024}MB limit
+              </p>
+            )}
+            {error === 'format' && (
+              <p className="text-red-500 text-sm">
+                Unsupported file format. Accepted formats: {acceptedTypes.join(', ')}
+              </p>
+            )}
+          </div>
         </div>
+        <label htmlFor={id} className="cursor-pointer">
+          <input
+            id={id}
+            type="file"
+            className="hidden"
+            accept={acceptedTypes.join(',')}
+            onChange={handleFileInput}
+          />
+          <SharedUi.Button
+            className="button-gradient-light border-gradient rounded-xl px-4 py-3 hover:bg-brand/20 active:bg-brand"
+            type="button"
+            onClick={(e) => e.currentTarget.parentElement?.click()}
+          >
+            Browse
+          </SharedUi.Button>
+        </label>
       </div>
-      <label htmlFor={id} className="cursor-pointer">
-        <input
-          id={id}
-          type="file"
-          className="hidden"
-          accept={acceptedTypes.join(',')}
-          onChange={handleFileInput}
-        />
-        <SharedUi.Button
-          className="button-gradient-light border-gradient rounded-xl px-4 py-3 hover:bg-brand/20 active:bg-brand"
-          type="button"
-          onClick={(e) => e.currentTarget.parentElement?.click()}
-        >
-          Browse
-        </SharedUi.Button>
-      </label>
+      {showAcceptedTypes && (
+        <p className="mt-2 text-[#666666]">
+          Only support {acceptedTypes.join(', ')} files up to {maxFileSize / 1024 / 1024}
+          MB
+        </p>
+      )}
     </div>
   )
 }

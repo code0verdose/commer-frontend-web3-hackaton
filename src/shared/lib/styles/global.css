@@ -75,6 +75,28 @@
     mask-composite: exclude;
     pointer-events: none;
   }
+
+  .border-gradient-3xl {
+    position: relative;
+  }
+
+  .border-gradient-3xl::before {
+    content: '';
+    position: absolute;
+    border-radius: 1.5rem;
+    inset: 0;
+    padding: 0.0625rem;
+    background: linear-gradient(94deg, #4c60e7 3.57%, #8e93f8 94.43%);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 }
 
 @layer utilities {
