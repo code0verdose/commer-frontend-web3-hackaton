@@ -99,11 +99,11 @@ export function UploadArea({
   }
 
   return (
-    <div className="flex flex-col gap-y-6">
+    <div className="flex flex-col">
       {label && (
         <div className="text-2xl font-semibold text-white">
           {label}
-          {error && <p className="text-sm text-red/80">{error}</p>}
+          <p className="h-6 text-sm text-red/80">{error || null}</p>
         </div>
       )}
       <div

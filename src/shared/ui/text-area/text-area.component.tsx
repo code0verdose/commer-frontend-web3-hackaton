@@ -36,14 +36,14 @@ export function TextArea(props: Props) {
   const id = useId()
 
   return (
-    <div className={clsx('flex flex-col gap-y-6', className)}>
+    <div className={clsx('flex flex-col', className)}>
       {label && (
         <label
           htmlFor={id}
           className={clsx('text-2xl font-semibold text-white', labelClassName)}
         >
           {label}
-          {error && <p className="text-sm text-red/80">{error}</p>}
+          <p className="h-6 text-sm text-red/80">{error || null}</p>
         </label>
       )}
       <textarea
