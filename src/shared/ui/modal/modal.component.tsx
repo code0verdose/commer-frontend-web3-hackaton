@@ -59,21 +59,22 @@ export function Modal(props: Props) {
     <Portal>
       <div
         className={clsx(
-          'pointer-events-none fixed inset-0 -z-10 opacity-0',
+          'pointer-events-none fixed inset-0 -z-10 opacity-0 transition-all duration-300',
           mods,
           className,
         )}
       >
         <div
           className={clsx(
-            'flex size-full items-center justify-center bg-black/80',
+            'flex size-full items-center justify-center bg-black/80 transition-all duration-300',
             overlayClassName,
           )}
           onClick={closeHandler}
         >
           <div
             className={clsx(
-              'h-fit overflow-hidden rounded-3xl bg-ui p-8',
+              'h-fit overflow-hidden rounded-3xl bg-ui p-8 transition-all duration-300',
+              isOpen ? 'translate-y-0' : 'translate-y-full',
               contentClassName,
             )}
             onClick={onContentClick}
