@@ -1,14 +1,38 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { SharedLib, SharedUi } from '@shared/index'
+import { BotService } from '@units/bot'
 import clsx from 'clsx'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 import { InviteBotModal } from './ui'
 
-interface Props extends React.HTMLAttributes<HTMLFormElement> {
-  onSubmit: (data: any) => void
+type BotSettingsFormData = z.infer<typeof BotService.Schemas.botSettingsValidationSchema>
+
+interface Props extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
+  onSubmit: (data: BotSettingsFormData) => void
   className?: string
 }
 
 export function BotSettingsForm(props: Props) {
   const { onSubmit, className, ...otherProps } = props
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<BotSettingsFormData>({
+    resolver: zodResolver(BotService.Schemas.botSettingsValidationSchema),
+    defaultValues: {
+      name: '',
+      description: '',
+      systemPrompt: '',
+      knowledgeBase: [],
+      tokenAddress: '',
+    },
+    mode: 'onChange',
+  })
+
+  console.log(errors)
 
   const {
     opened: isInviteBotModalOpen,
@@ -17,25 +41,45 @@ export function BotSettingsForm(props: Props) {
   } = SharedLib.Hooks.useDisclosure()
 
   return (
-    <form {...otherProps} className={clsx('flex gap-x-8', className)}>
+    <form
+      {...otherProps}
+      className={clsx('flex gap-x-8', className)}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="grow space-y-8 rounded-3xl bg-ui p-8">
-        <SharedUi.Input placeholder="Name" label="Project name" />
-        <SharedUi.TextArea
+        <SharedUi.InputControl
+          control={control}
+          name="name"
+          placeholder="Name"
+          label="Project name"
+        />
+        <SharedUi.TextAreaControl
+          control={control}
+          name="description"
           placeholder="Put little description of your project here"
           label="Description"
           resize="none"
         />
-        <SharedUi.TextArea
+        <SharedUi.TextAreaControl
+          control={control}
+          name="systemPrompt"
           placeholder="Put system prompt here"
           label="System prompt"
           rows={10}
           resize="none"
         />
-        <SharedUi.UploadArea
+        <SharedUi.UploadAreaControl
+          control={control}
+          name="knowledgeBase"
           acceptedTypes={['.pdf', '.docx']}
           label="Upload knowledge base"
         />
-        <SharedUi.Input placeholder="0x0000..." label="Token address (optional)" />
+        <SharedUi.InputControl
+          control={control}
+          name="tokenAddress"
+          placeholder="0x0000..."
+          label="Token address (optional)"
+        />
         <SharedUi.Button
           className="button-gradient w-full rounded-xl px-4 py-3"
           onClick={openInviteBotModal}

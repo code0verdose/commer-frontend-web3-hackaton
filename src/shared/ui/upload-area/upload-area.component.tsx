@@ -17,6 +17,7 @@ interface UploadAreaProps {
   className?: string
   label?: string
   showAcceptedTypes?: boolean
+  error?: string
 }
 
 export function UploadArea({
@@ -26,27 +27,28 @@ export function UploadArea({
   className,
   label,
   showAcceptedTypes = true,
+  error,
 }: UploadAreaProps) {
   const [isDragging, setIsDragging] = useState(false)
-  const [error, setError] = useState<FileValidationError>(null)
+  const [validationError, setValidationError] = useState<FileValidationError>(null)
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null)
 
   const id = useId()
 
   const validateFile = (file: File): boolean => {
-    setError(null)
+    setValidationError(null)
     setSelectedFileName(file.name)
 
     // Проверка размера
     if (file.size > maxFileSize) {
-      setError('size')
+      setValidationError('size')
       return false
     }
 
     // Проверка формата
     const fileExtension = `.${file.name.split('.').pop()?.toLowerCase()}`
     if (!acceptedTypes.includes(fileExtension)) {
-      setError('format')
+      setValidationError('format')
       return false
     }
 
@@ -88,7 +90,7 @@ export function UploadArea({
 
   const clearFile = () => {
     setSelectedFileName(null)
-    setError(null)
+    setValidationError(null)
 
     const fileInput = document.getElementById(id) as HTMLInputElement
     if (fileInput) {
@@ -98,7 +100,12 @@ export function UploadArea({
 
   return (
     <div className="flex flex-col gap-y-6">
-      {label && <p className="text-2xl font-semibold text-white">{label}</p>}
+      {label && (
+        <div className="text-2xl font-semibold text-white">
+          {label}
+          {error && <p className="text-sm text-red/80">{error}</p>}
+        </div>
+      )}
       <div
         className={clsx(
           'border-gradient flex items-center justify-between rounded-xl p-6',
@@ -126,12 +133,12 @@ export function UploadArea({
                 </button>
               </p>
             )}
-            {error === 'size' && (
+            {validationError === 'size' && (
               <p className="text-sm text-red/80">
                 File size exceeds {maxFileSize / 1024 / 1024}MB limit
               </p>
             )}
-            {error === 'format' && (
+            {validationError === 'format' && (
               <p className="text-sm text-red/80">
                 Unsupported file format. Accepted formats: {acceptedTypes.join(', ')}
               </p>

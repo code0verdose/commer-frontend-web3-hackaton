@@ -1,9 +1,7 @@
 import clsx from 'clsx'
-import { ChangeEventHandler, InputHTMLAttributes, useId } from 'react'
+import { InputHTMLAttributes, useId } from 'react'
 
 interface Props extends InputHTMLAttributes<HTMLTextAreaElement> {
-  value?: string
-  onChange?: ChangeEventHandler<HTMLTextAreaElement>
   placeholder?: string
   className?: string
   labelClassName?: string
@@ -15,12 +13,11 @@ interface Props extends InputHTMLAttributes<HTMLTextAreaElement> {
   maxRows?: number
   resize?: 'none' | 'both' | 'horizontal' | 'vertical'
   autoResize?: boolean
+  error?: string
 }
 
 export function TextArea(props: Props) {
   const {
-    value,
-    onChange,
     placeholder,
     className,
     label,
@@ -32,6 +29,7 @@ export function TextArea(props: Props) {
     maxRows,
     resize = 'vertical',
     autoResize,
+    error,
     ...otherProps
   } = props
 
@@ -45,6 +43,7 @@ export function TextArea(props: Props) {
           className={clsx('text-2xl font-semibold text-white', labelClassName)}
         >
           {label}
+          {error && <p className="text-sm text-red/80">{error}</p>}
         </label>
       )}
       <textarea
@@ -56,8 +55,6 @@ export function TextArea(props: Props) {
         {...otherProps}
         id={id}
         placeholder={placeholder}
-        value={value}
-        onChange={onChange}
         rows={rows}
         cols={cols}
       />

@@ -1,36 +1,47 @@
-import { ValidationErrors } from '@shared/lib/constants/validation-errors.constant'
+import { SharedLib } from '@shared/index'
+
 import { z } from 'zod'
 
 export const botSettingsValidationSchema = z.object({
   name: z
     .string()
-    .min(1, ValidationErrors.RequiredField)
-    .max(50, ValidationErrors.FieldMaxLength(50)),
+    .min(1, { message: SharedLib.Constants.ValidationErrors.Required('Name') })
+    .max(50, { message: SharedLib.Constants.ValidationErrors.FieldMaxLength(50) }),
 
   description: z
     .string()
-    .min(1, ValidationErrors.RequiredField)
-    .max(500, ValidationErrors.FieldMaxLength(500)),
+    .min(1, { message: SharedLib.Constants.ValidationErrors.Required('Description') })
+    .max(500, { message: SharedLib.Constants.ValidationErrors.FieldMaxLength(500) }),
 
   systemPrompt: z
     .string()
-    .min(1, ValidationErrors.RequiredField)
-    .max(2000, ValidationErrors.FieldMaxLength(2000)),
+    .min(1, { message: SharedLib.Constants.ValidationErrors.Required('System prompt') })
+    .max(2000, { message: SharedLib.Constants.ValidationErrors.FieldMaxLength(2000) }),
 
-  knowledgeBase: z.array(z.custom<File>()).refine((files) => {
-    if (!files) return true
-    return files.every(
-      (file) =>
-        file.type === 'application/pdf' ||
-        file.type ===
-          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    )
-  }, ValidationErrors.InvalidFile),
+  knowledgeBase: z
+    .array(z.custom<File>())
+    .min(1, { message: SharedLib.Constants.ValidationErrors.Required('Knowledge base') })
+    .refine(
+      (files) => {
+        if (!files) return true
+        return files.every(
+          (file) =>
+            file.type === 'application/pdf' ||
+            file.type ===
+              'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        )
+      },
+      { message: SharedLib.Constants.ValidationErrors.InvalidFile },
+    ),
 
   tokenAddress: z
     .string()
-    .regex(/^0x[a-fA-F0-9]{40}$/, ValidationErrors.TokenAddress)
-    .optional(),
+    .optional()
+    .refine(
+      (value) => {
+        if (!value) return true
+        return /^0x[a-fA-F0-9]{40}$/.test(value)
+      },
+      { message: SharedLib.Constants.ValidationErrors.TokenAddress },
+    ),
 })
-
-export type BotSettingsFormData = z.infer<typeof botSettingsValidationSchema>

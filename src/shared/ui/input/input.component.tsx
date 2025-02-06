@@ -7,10 +7,12 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
   type?: 'text' | 'number' | 'email' | 'password'
   inputClassName?: string
+  error?: string
 }
 
 export function Input(props: Props) {
-  const { className, label, type, labelClassName, inputClassName, ...otherProps } = props
+  const { className, label, type, labelClassName, inputClassName, error, ...otherProps } =
+    props
 
   const id = useId()
 
@@ -22,6 +24,7 @@ export function Input(props: Props) {
           className={clsx('text-2xl font-semibold text-white', labelClassName)}
         >
           {label}
+          {error && <p className="text-sm text-red/80">{error}</p>}
         </label>
       )}
       <input
