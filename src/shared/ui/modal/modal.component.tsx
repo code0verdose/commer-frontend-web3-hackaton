@@ -66,7 +66,7 @@ export function Modal(props: Props) {
       >
         <div
           className={clsx(
-            'flex size-full items-center justify-center bg-black/50',
+            'flex size-full items-center justify-center bg-black/80',
             overlayClassName,
           )}
           onClick={closeHandler}
