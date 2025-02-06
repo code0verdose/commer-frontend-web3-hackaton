@@ -72,7 +72,10 @@ export function Modal(props: Props) {
           onClick={closeHandler}
         >
           <div
-            className={clsx('h-fit rounded-3xl bg-ui p-8', contentClassName)}
+            className={clsx(
+              'h-fit overflow-hidden rounded-3xl bg-ui p-8',
+              contentClassName,
+            )}
             onClick={onContentClick}
           >
             {children}

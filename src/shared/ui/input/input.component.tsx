@@ -1,10 +1,7 @@
 import clsx from 'clsx'
-import { ChangeEventHandler, InputHTMLAttributes, useId } from 'react'
+import { InputHTMLAttributes, useId } from 'react'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  value?: string
-  onChange?: ChangeEventHandler<HTMLInputElement>
-  placeholder?: string
   className?: string
   labelClassName?: string
   label?: string
@@ -13,17 +10,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export function Input(props: Props) {
-  const {
-    value,
-    onChange,
-    placeholder,
-    className,
-    label,
-    type,
-    labelClassName,
-    inputClassName,
-    ...otherProps
-  } = props
+  const { className, label, type, labelClassName, inputClassName, ...otherProps } = props
 
   const id = useId()
 
@@ -45,9 +32,6 @@ export function Input(props: Props) {
         {...otherProps}
         id={id}
         type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
       />
     </div>
   )

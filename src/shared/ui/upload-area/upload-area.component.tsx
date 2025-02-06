@@ -127,7 +127,7 @@ export function UploadArea({
               </p>
             )}
             {error === 'size' && (
-              <p className="text-red-500 text-sm">
+              <p className="text-sm text-red/80">
                 File size exceeds {maxFileSize / 1024 / 1024}MB limit
               </p>
             )}

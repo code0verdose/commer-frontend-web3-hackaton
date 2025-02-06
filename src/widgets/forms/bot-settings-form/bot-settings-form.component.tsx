@@ -32,7 +32,10 @@ export function BotSettingsForm(props: Props) {
           rows={10}
           resize="none"
         />
-        <SharedUi.UploadArea label="Upload knowledge base" />
+        <SharedUi.UploadArea
+          acceptedTypes={['.pdf', '.docx']}
+          label="Upload knowledge base"
+        />
         <SharedUi.Input placeholder="0x0000..." label="Token address (optional)" />
         <SharedUi.Button
           className="button-gradient w-full rounded-xl px-4 py-3"
