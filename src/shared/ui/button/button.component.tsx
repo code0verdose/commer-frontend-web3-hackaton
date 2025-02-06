@@ -20,10 +20,7 @@ export function Button(props: Props) {
   return (
     <button
       type={type}
-      className={clsx(
-        'cursor-pointer text-white focus:outline-dashed focus:outline-2 focus:outline-brand ',
-        className,
-      )}
+      className={clsx('cursor-pointer text-white', className)}
       onClick={handleClick}
       {...otherProps}
     >

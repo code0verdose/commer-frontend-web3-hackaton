@@ -24,6 +24,7 @@ export function BotSettingsForm(props: Props) {
           rows={10}
           resize="none"
         />
+        <SharedUi.UploadArea />
         <SharedUi.Input
           placeholder="0x0000000000000000000000000000000000000000"
           label="Token address"

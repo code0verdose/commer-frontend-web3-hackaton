@@ -4,6 +4,7 @@ const IconNames = {
   logo: React.lazy(() => import('./assets/logo.svg?react')),
   checked: React.lazy(() => import('./assets/checked.svg?react')),
   unchecked: React.lazy(() => import('./assets/unchecked.svg?react')),
+  upload: React.lazy(() => import('./assets/upload.svg?react')),
 } as const
 
 export type IconTypes = keyof typeof IconNames

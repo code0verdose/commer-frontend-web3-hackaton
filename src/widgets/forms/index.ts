@@ -1,1 +1,1 @@
-export * from './bot-settings'
+export * from './bot-settings-form'

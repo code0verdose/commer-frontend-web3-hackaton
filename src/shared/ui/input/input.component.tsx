@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { ChangeEventHandler, InputHTMLAttributes } from 'react'
+import { ChangeEventHandler, InputHTMLAttributes, useId } from 'react'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   value?: string
@@ -25,11 +25,13 @@ export function Input(props: Props) {
     ...otherProps
   } = props
 
+  const id = useId()
+
   return (
-    <div className={clsx('flex flex-col gap-y-2', className)}>
+    <div className={clsx('flex flex-col gap-y-6', className)}>
       {label && (
         <label
-          htmlFor="input"
+          htmlFor={id}
           className={clsx('text-2xl font-semibold text-white', labelClassName)}
         >
           {label}
@@ -37,11 +39,11 @@ export function Input(props: Props) {
       )}
       <input
         className={clsx(
-          'rounded-xl border-none bg-[#1d1d1d] px-4 py-3 text-2xl leading-10 text-white placeholder:text-white/40 focus:outline-dashed focus:outline-2 focus:outline-brand',
+          'rounded-xl border-none bg-[#1d1d1d] px-4 py-3 text-2xl leading-10 text-white placeholder:text-white/40 focus:outline-dashed focus:outline-1 focus:outline-brand',
           inputClassName,
         )}
         {...otherProps}
-        id="input"
+        id={id}
         type={type}
         placeholder={placeholder}
         value={value}
