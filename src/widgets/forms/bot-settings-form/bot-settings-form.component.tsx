@@ -1,5 +1,7 @@
 import { SharedUi } from '@shared/index'
+import { useDisclosure } from '@shared/lib/hooks'
 import clsx from 'clsx'
+import { InviteBotModal } from './ui/invite-bot-modal/invite-bot-modal.component'
 
 interface Props extends React.HTMLAttributes<HTMLFormElement> {
   onSubmit: (data: any) => void
@@ -9,10 +11,16 @@ interface Props extends React.HTMLAttributes<HTMLFormElement> {
 export function BotSettingsForm(props: Props) {
   const { onSubmit, className, ...otherProps } = props
 
+  const {
+    opened: isInviteBotModalOpen,
+    open: openInviteBotModal,
+    close: closeInviteBotModal,
+  } = useDisclosure()
+
   return (
     <form {...otherProps} className={clsx('flex gap-x-8', className)}>
       <div className="grow space-y-8 rounded-3xl bg-ui p-8">
-        <SharedUi.Input placeholder="Name input" label="Project name" />
+        <SharedUi.Input placeholder="Name" label="Project name" />
         <SharedUi.TextArea
           placeholder="Put little description of your project here"
           label="Description"
@@ -25,10 +33,13 @@ export function BotSettingsForm(props: Props) {
           resize="none"
         />
         <SharedUi.UploadArea label="Upload knowledge base" />
-        <SharedUi.Input
-          placeholder="0x0000000000000000000000000000000000000000"
-          label="Token address"
-        />
+        <SharedUi.Input placeholder="0x0000..." label="Token address (optional)" />
+        <SharedUi.Button
+          className="button-gradient w-full rounded-xl px-4 py-3"
+          onClick={openInviteBotModal}
+        >
+          Invite Bot
+        </SharedUi.Button>
       </div>
       <div className="h-fit w-[26.25rem] space-y-8 rounded-3xl bg-ui p-8">
         <SharedUi.Button
@@ -38,6 +49,7 @@ export function BotSettingsForm(props: Props) {
           Deploy
         </SharedUi.Button>
       </div>
+      <InviteBotModal isOpen={isInviteBotModalOpen} onClose={closeInviteBotModal} />
     </form>
   )
 }

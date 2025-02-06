@@ -119,7 +119,7 @@ export function UploadArea({
                 Selected file:{' '}
                 <button
                   type="button"
-                  className="cursor-pointer hover:line-through"
+                  className="cursor-pointer hover:text-red/80 hover:line-through"
                   onClick={clearFile}
                 >
                   {SharedLib.Utils.shortenFileName(selectedFileName, 30)}
@@ -132,7 +132,7 @@ export function UploadArea({
               </p>
             )}
             {error === 'format' && (
-              <p className="text-red-500 text-sm">
+              <p className="text-sm text-red/80">
                 Unsupported file format. Accepted formats: {acceptedTypes.join(', ')}
               </p>
             )}
@@ -149,7 +149,7 @@ export function UploadArea({
           <SharedUi.Button
             className="button-gradient-light border-gradient rounded-xl px-4 py-3 hover:bg-brand/20 active:bg-brand"
             type="button"
-            onClick={(e) => e.currentTarget.parentElement?.click()}
+            onClick={(e) => e.currentTarget?.parentElement?.click()}
           >
             Browse
           </SharedUi.Button>

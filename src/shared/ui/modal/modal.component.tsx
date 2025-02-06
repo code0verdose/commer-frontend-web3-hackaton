@@ -7,8 +7,8 @@ import { Portal } from '../portal'
 
 interface Props {
   children?: ReactNode
-  isOpen?: boolean
-  onClose?: () => void
+  isOpen: boolean
+  onClose: () => void
   className?: string
   overlayClassName?: string
   contentClassName?: string
@@ -71,7 +71,10 @@ export function Modal(props: Props) {
           )}
           onClick={closeHandler}
         >
-          <div className={clsx('p-8', contentClassName)} onClick={onContentClick}>
+          <div
+            className={clsx('h-fit rounded-3xl bg-ui p-8', contentClassName)}
+            onClick={onContentClick}
+          >
             {children}
           </div>
         </div>

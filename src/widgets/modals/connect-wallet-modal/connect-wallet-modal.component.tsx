@@ -28,7 +28,7 @@ export function ConnectWalletModal(props: Props) {
     <SharedUi.Modal
       isOpen={opened}
       onClose={onClose}
-      contentClassName="rounded-3xl relative min-w-96 h-fit bg-ui"
+      contentClassName="relative min-w-96"
     >
       <h3 className="text-2xl font-semibold">Connect wallet</h3>
       {isConnecting && (
