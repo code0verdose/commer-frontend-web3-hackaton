@@ -5,7 +5,7 @@ import { Web3Config, Web3Lib, Web3Ui } from '@web3/index'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 
-type ProcessingStatus =
+type AuthProcessingStatus =
   | 'Wallet connection'
   | 'Nonce request'
   | 'Signature request'
@@ -20,7 +20,9 @@ interface Props {
 
 export function ConnectWalletModal(props: Props) {
   const { opened, onClose } = props
-  const [processingStatus, setProcessingStatus] = useState<ProcessingStatus | null>(null)
+  const [processingStatus, setProcessingStatus] = useState<AuthProcessingStatus | null>(
+    null,
+  )
 
   const { connectWallet } = Web3Lib.Hooks.useWallet()
   const { handleGetNonce, handleSignIn } = AccountLib.Hooks.useAccount()

@@ -1,7 +1,6 @@
-import { SharedUi } from '@shared/index'
-import { useDisclosure } from '@shared/lib/hooks'
+import { SharedLib, SharedUi } from '@shared/index'
 import clsx from 'clsx'
-import { InviteBotModal } from './ui/invite-bot-modal/invite-bot-modal.component'
+import { InviteBotModal } from './ui'
 
 interface Props extends React.HTMLAttributes<HTMLFormElement> {
   onSubmit: (data: any) => void
@@ -15,7 +14,7 @@ export function BotSettingsForm(props: Props) {
     opened: isInviteBotModalOpen,
     open: openInviteBotModal,
     close: closeInviteBotModal,
-  } = useDisclosure()
+  } = SharedLib.Hooks.useDisclosure()
 
   return (
     <form {...otherProps} className={clsx('flex gap-x-8', className)}>
@@ -28,7 +27,7 @@ export function BotSettingsForm(props: Props) {
         />
         <SharedUi.TextArea
           placeholder="Put system prompt here"
-          label="System promt"
+          label="System prompt"
           rows={10}
           resize="none"
         />
