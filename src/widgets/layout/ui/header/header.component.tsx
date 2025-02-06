@@ -1,4 +1,5 @@
 import { SharedUi } from '@shared/index'
+import { Web3Lib } from '@web3/index'
 import { Logo } from '@widgets/logo'
 import clsx from 'clsx'
 
@@ -11,6 +12,8 @@ interface Props extends React.ComponentPropsWithoutRef<'header'> {
 export function Header(props: Props) {
   const { className, connect, disconnect, isConnected, ...otherProps } = props
 
+  const { address } = Web3Lib.Hooks.useWallet()
+
   return (
     <header
       className={clsx(
@@ -20,12 +23,26 @@ export function Header(props: Props) {
       {...otherProps}
     >
       <Logo />
-      <SharedUi.Button
-        onClick={isConnected ? disconnect : connect}
-        className="button-gradient rounded-xl px-4 py-3 leading-tight"
-      >
-        {isConnected ? 'Disconnect' : 'Connect wallet'}
-      </SharedUi.Button>
+      <div className="flex items-center gap-x-4">
+        {/* {isConnected && (
+          <p className="text-brand">{Web3Lib.Utils.shortenAddress(address)}</p>
+        )} */}
+        <SharedUi.Button
+          onClick={isConnected ? disconnect : connect}
+          className="button-gradient group min-w-40 rounded-xl px-4 py-3 leading-tight hover:opacity-90"
+        >
+          {isConnected ? (
+            <>
+              <span className="block group-hover:hidden">
+                {Web3Lib.Utils.shortenAddress(address)}
+              </span>
+              <span className="hidden group-hover:block">Disconnect</span>
+            </>
+          ) : (
+            'Connect wallet'
+          )}
+        </SharedUi.Button>
+      </div>
     </header>
   )
 }

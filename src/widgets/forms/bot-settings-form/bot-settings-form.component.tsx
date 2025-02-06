@@ -4,7 +4,7 @@ import { BotService } from '@units/bot'
 import clsx from 'clsx'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { InviteBotModal } from './ui'
+import { CheckupList, InviteBotModal } from './ui'
 
 type BotSettingsFormData = z.infer<typeof BotService.Schemas.botSettingsValidationSchema>
 
@@ -16,7 +16,7 @@ interface Props extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> 
 export function BotSettingsForm(props: Props) {
   const { onSubmit, className, ...otherProps } = props
 
-  const { control, handleSubmit } = useForm<BotSettingsFormData>({
+  const { control, handleSubmit, formState, watch } = useForm<BotSettingsFormData>({
     resolver: zodResolver(BotService.Schemas.botSettingsValidationSchema),
     defaultValues: {
       name: '',
@@ -81,13 +81,16 @@ export function BotSettingsForm(props: Props) {
           Invite Bot
         </SharedUi.Button>
       </div>
-      <div className="h-fit w-[26.25rem] space-y-8 rounded-3xl bg-ui p-8">
-        <SharedUi.Button
-          className="button-gradient w-full rounded-xl px-4 py-3"
-          type="submit"
-        >
-          Deploy
-        </SharedUi.Button>
+      <div>
+        <div className="sticky top-8 h-fit w-[26.25rem] space-y-8 rounded-3xl bg-ui p-8">
+          <CheckupList watch={watch} formState={formState} />
+          <SharedUi.Button
+            className="button-gradient w-full rounded-xl px-4 py-3"
+            type="submit"
+          >
+            Deploy
+          </SharedUi.Button>
+        </div>
       </div>
       <InviteBotModal isOpen={isInviteBotModalOpen} onClose={closeInviteBotModal} />
     </form>

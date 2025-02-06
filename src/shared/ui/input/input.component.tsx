@@ -31,6 +31,7 @@ export function Input(props: Props) {
       <input
         className={clsx(
           'rounded-xl border-none bg-[#1d1d1d] px-4 py-3 text-2xl leading-10 text-white placeholder:text-white/40 focus:outline-dashed focus:outline-1 focus:outline-brand',
+          error && 'outline-dashed outline-1 outline-red/80',
           inputClassName,
         )}
         {...otherProps}
