@@ -32,8 +32,6 @@ export function BotSettingsForm(props: Props) {
     mode: 'onChange',
   })
 
-  console.log(errors)
-
   const {
     opened: isInviteBotModalOpen,
     open: openInviteBotModal,
