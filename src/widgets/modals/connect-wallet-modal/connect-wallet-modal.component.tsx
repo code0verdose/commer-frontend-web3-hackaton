@@ -1,5 +1,7 @@
 import { SharedUi } from '@shared/index'
-import { Web3Lib, Web3Ui } from '@web3/index'
+import { AccountLib } from '@units/account'
+import { Connector, getAccount } from '@wagmi/core'
+import { Web3Config, Web3Lib, Web3Ui } from '@web3/index'
 
 interface Props {
   opened: boolean
@@ -12,6 +14,16 @@ export function ConnectWalletModal(props: Props) {
   const { connectWallet, isConnecting } = Web3Lib.Hooks.useWallet({
     onConnect: onClose,
   })
+  const { handleLogin } = AccountLib.Hooks.useAccount()
+
+  const signIn = async (connector: Connector) => {
+    await connectWallet(connector)
+    const { address } = getAccount(Web3Config.wagmiConfig)
+    if (address) {
+      await handleLogin(address)
+    }
+  }
+
   return (
     <SharedUi.Modal
       isOpen={opened}
@@ -24,7 +36,7 @@ export function ConnectWalletModal(props: Props) {
           <SharedUi.Loader className="size-12" />
         </div>
       )}
-      <Web3Ui.WalletAvailableConnectors className="mt-8" handleConnect={connectWallet} />
+      <Web3Ui.WalletAvailableConnectors className="mt-8" handleConnect={signIn} />
     </SharedUi.Modal>
   )
 }
