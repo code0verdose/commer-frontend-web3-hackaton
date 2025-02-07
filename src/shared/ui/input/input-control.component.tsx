@@ -7,6 +7,7 @@ interface InputControlProps<T extends FieldValues> {
   label?: string
   placeholder?: string
   className?: string
+  disabled?: boolean
   labelClassName?: string
   inputClassName?: string
   type?: 'text' | 'number' | 'email' | 'password'
@@ -21,6 +22,7 @@ export function InputControl<T extends FieldValues>({
   labelClassName,
   inputClassName,
   type = 'text',
+  disabled = false,
 }: InputControlProps<T>) {
   return (
     <Controller
@@ -37,6 +39,7 @@ export function InputControl<T extends FieldValues>({
           labelClassName={labelClassName}
           inputClassName={inputClassName}
           type={type}
+          disabled={disabled}
         />
       )}
     />

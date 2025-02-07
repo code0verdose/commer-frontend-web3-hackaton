@@ -8,6 +8,7 @@ interface TextAreaControlProps<T extends FieldValues> {
   placeholder?: string
   className?: string
   labelClassName?: string
+  disabled?: boolean
   textareaClassName?: string
   rows?: number
   cols?: number
@@ -25,6 +26,7 @@ export function TextAreaControl<T extends FieldValues>({
   rows,
   cols,
   resize,
+  disabled = false,
 }: TextAreaControlProps<T>) {
   return (
     <Controller
@@ -43,6 +45,7 @@ export function TextAreaControl<T extends FieldValues>({
           rows={rows}
           cols={cols}
           resize={resize}
+          disabled={disabled}
         />
       )}
     />
