@@ -11,7 +11,7 @@ export function App() {
   return (
     <WagmiProvider config={Web3Config.wagmiConfig}>
       <QueryClientProvider client={SharedApi.queryClient}>
-        <Toaster {...ToasterConfig} />
+        <Toaster toastOptions={{ ...ToasterConfig }} />
         <RouterProvider router={router} />
       </QueryClientProvider>
     </WagmiProvider>

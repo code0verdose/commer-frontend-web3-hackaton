@@ -9,7 +9,7 @@ export function SettingsSection(props: Props) {
   return (
     <section className={clsx('', className)} {...otherProps}>
       <h2 className="text-3xl font-semibold">Settings</h2>
-      <BotSettingsForm onSubmit={() => {}} className="mt-8" />
+      <BotSettingsForm className="mt-8" />
     </section>
   )
 }

@@ -16,8 +16,10 @@ interface Props {
 export function CheckupList({ watch, formState }: Props) {
   const nameValue = watch('name')
   const descriptionValue = watch('description')
-  const systemPromptValue = watch('systemPrompt')
-  const knowledgeBaseValue = watch('knowledgeBase')
+  const serverIdValue = watch('serverId')
+  // const contractAddressValue = watch('contractAddress')
+  // const systemPromptValue = watch('systemPrompt')
+  // const knowledgeBaseValue = watch('knowledgeBase')
 
   const requiredFields = [
     {
@@ -27,23 +29,30 @@ export function CheckupList({ watch, formState }: Props) {
       isValid: !formState.errors.name && nameValue !== '',
     },
     {
+      name: 'serverId',
+      label: 'Server ID',
+      value: serverIdValue,
+      isValid: !formState.errors.serverId && serverIdValue !== '',
+    },
+    {
       name: 'description',
       label: 'Description',
       value: descriptionValue,
       isValid: !formState.errors.description && descriptionValue !== '',
     },
-    {
-      name: 'systemPrompt',
-      label: 'System prompt',
-      value: systemPromptValue,
-      isValid: !formState.errors.systemPrompt && systemPromptValue !== '',
-    },
-    {
-      name: 'knowledgeBase',
-      label: 'Knowledge base',
-      value: knowledgeBaseValue,
-      isValid: !formState.errors.knowledgeBase && knowledgeBaseValue.length > 0,
-    },
+
+    // {
+    // name: 'systemPrompt',
+    //   label: 'System prompt',
+    //   value: systemPromptValue,
+    //   isValid: !formState.errors.systemPrompt && systemPromptValue !== '',
+    // },
+    // {
+    //   name: 'knowledgeBase',
+    //   label: 'Knowledge base',
+    //   value: knowledgeBaseValue,
+    //   isValid: !formState.errors.knowledgeBase && knowledgeBaseValue.length > 0,
+    // },
   ]
 
   return (

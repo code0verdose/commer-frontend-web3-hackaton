@@ -4,6 +4,7 @@ import { AuthTokens, BaseApiResponse } from '@shared/types'
 import { QueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { SharedLib } from '..'
 
 export const queryClient = new QueryClient()
 
@@ -20,14 +21,21 @@ instance.interceptors.request.use((config) => {
 })
 
 const refreshTokens = async () => {
-  const { data } = await instance.post<BaseApiResponse<AuthTokens>>('/auth/refresh')
+  const payload = {
+    refreshToken: localStorage.getItem(SharedLib.Enums.LocalStorageKey.RefreshToken),
+    accessToken: localStorage.getItem(SharedLib.Enums.LocalStorageKey.AccessToken),
+  }
+  const { data } = await instance.post<BaseApiResponse<AuthTokens>>(
+    '/auth/refresh',
+    payload,
+  )
   return data.data
 }
 
 instance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (axios.isAxiosError(error)) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
       try {
         const tokens = await refreshTokens()
         Stores.useAuthStore.getState().setTokens({ ...tokens })

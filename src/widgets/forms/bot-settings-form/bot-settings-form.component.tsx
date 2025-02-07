@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SharedLib, SharedUi } from '@shared/index'
-import { BotService } from '@units/bot'
+import { BotService, BotTypes } from '@units/bot'
 import clsx from 'clsx'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -9,24 +9,32 @@ import { CheckupList, InviteBotModal } from './ui'
 type BotSettingsFormData = z.infer<typeof BotService.Schemas.botSettingsValidationSchema>
 
 interface Props extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
-  onSubmit: (data: BotSettingsFormData) => void
   className?: string
 }
 
 export function BotSettingsForm(props: Props) {
-  const { onSubmit, className, ...otherProps } = props
+  const { className, ...otherProps } = props
 
-  const { control, handleSubmit, formState, watch } = useForm<BotSettingsFormData>({
-    resolver: zodResolver(BotService.Schemas.botSettingsValidationSchema),
-    defaultValues: {
-      name: '',
-      description: '',
-      systemPrompt: '',
-      knowledgeBase: [],
-      tokenAddress: '',
+  const { mutateAsync: createBot, isPending } = BotService.Mutations.useCreateBot()
+
+  const onSubmit = async (data: BotTypes.Dto.CreateBotDto) => {
+    await createBot(data)
+  }
+
+  const { control, handleSubmit, formState, watch, reset } = useForm<BotSettingsFormData>(
+    {
+      resolver: zodResolver(BotService.Schemas.botSettingsValidationSchema),
+      defaultValues: {
+        name: '',
+        description: '',
+        serverId: '',
+        contractAddress: '',
+        // systemPrompt: '',
+        // knowledgeBase: [],
+      },
+      mode: 'onChange',
     },
-    mode: 'onChange',
-  })
+  )
 
   const {
     opened: isInviteBotModalOpen,
@@ -34,11 +42,16 @@ export function BotSettingsForm(props: Props) {
     close: closeInviteBotModal,
   } = SharedLib.Hooks.useDisclosure()
 
+  const handleFormSubmit = async (data: BotSettingsFormData) => {
+    await onSubmit(data)
+    reset()
+  }
+
   return (
     <form
       {...otherProps}
       className={clsx('flex gap-x-8', className)}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(handleFormSubmit)}
     >
       <div className="grow space-y-8 rounded-3xl bg-ui p-8">
         <SharedUi.InputControl
@@ -47,6 +60,12 @@ export function BotSettingsForm(props: Props) {
           placeholder="Name"
           label="Project name"
         />
+        <SharedUi.InputControl
+          control={control}
+          name="serverId"
+          placeholder="Server ID"
+          label="Server ID"
+        />
         <SharedUi.TextAreaControl
           control={control}
           name="description"
@@ -54,7 +73,7 @@ export function BotSettingsForm(props: Props) {
           label="Description"
           resize="none"
         />
-        <SharedUi.TextAreaControl
+        {/* <SharedUi.TextAreaControl
           control={control}
           name="systemPrompt"
           placeholder="Put system prompt here"
@@ -67,10 +86,10 @@ export function BotSettingsForm(props: Props) {
           name="knowledgeBase"
           acceptedTypes={['.pdf', '.docx']}
           label="Upload knowledge base"
-        />
+        /> */}
         <SharedUi.InputControl
           control={control}
-          name="tokenAddress"
+          name="contractAddress"
           placeholder="0x0000..."
           label="Token address (optional)"
         />
@@ -87,9 +106,15 @@ export function BotSettingsForm(props: Props) {
           <SharedUi.Button
             className="button-gradient w-full rounded-xl px-4 py-3"
             type="submit"
+            disabled={isPending}
           >
             Deploy
           </SharedUi.Button>
+          {isPending && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50">
+              <SharedUi.Loader className="mb-8 size-20" />
+            </div>
+          )}
         </div>
       </div>
       <InviteBotModal isOpen={isInviteBotModalOpen} onClose={closeInviteBotModal} />

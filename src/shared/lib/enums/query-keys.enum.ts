@@ -1,1 +1,4 @@
-export enum QueryKey {}
+export enum QueryKey {
+  Bots = 'bots',
+  Bot = 'bot',
+}

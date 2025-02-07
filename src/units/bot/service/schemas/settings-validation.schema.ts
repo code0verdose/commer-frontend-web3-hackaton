@@ -8,33 +8,38 @@ export const botSettingsValidationSchema = z.object({
     .min(1, { message: SharedLib.Constants.ValidationErrors.Required('Name') })
     .max(50, { message: SharedLib.Constants.ValidationErrors.FieldMaxLength(50) }),
 
+  serverId: z
+    .string()
+    .min(1, { message: SharedLib.Constants.ValidationErrors.Required('Server ID') })
+    .max(50, { message: SharedLib.Constants.ValidationErrors.FieldMaxLength(50) }),
+
   description: z
     .string()
     .min(1, { message: SharedLib.Constants.ValidationErrors.Required('Description') })
     .max(500, { message: SharedLib.Constants.ValidationErrors.FieldMaxLength(500) }),
 
-  systemPrompt: z
-    .string()
-    .min(1, { message: SharedLib.Constants.ValidationErrors.Required('System prompt') })
-    .max(2000, { message: SharedLib.Constants.ValidationErrors.FieldMaxLength(2000) }),
+  // systemPrompt: z
+  //   .string()
+  //   .min(1, { message: SharedLib.Constants.ValidationErrors.Required('System prompt') })
+  //   .max(2000, { message: SharedLib.Constants.ValidationErrors.FieldMaxLength(2000) }),
 
-  knowledgeBase: z
-    .array(z.custom<File>())
-    .min(1, { message: SharedLib.Constants.ValidationErrors.Required('Knowledge base') })
-    .refine(
-      (files) => {
-        if (!files) return true
-        return files.every(
-          (file) =>
-            file.type === 'application/pdf' ||
-            file.type ===
-              'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        )
-      },
-      { message: SharedLib.Constants.ValidationErrors.InvalidFile },
-    ),
+  // knowledgeBase: z
+  //   .array(z.custom<File>())
+  //   .min(1, { message: SharedLib.Constants.ValidationErrors.Required('Knowledge base') })
+  //   .refine(
+  //     (files) => {
+  //       if (!files) return true
+  //       return files.every(
+  //         (file) =>
+  //           file.type === 'application/pdf' ||
+  //           file.type ===
+  //             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  //       )
+  //     },
+  //     { message: SharedLib.Constants.ValidationErrors.InvalidFile },
+  //   ),
 
-  tokenAddress: z
+  contractAddress: z
     .string()
     .optional()
     .refine(

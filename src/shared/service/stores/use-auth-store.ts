@@ -19,10 +19,28 @@ export const useAuthStore = create<AuthStore>()((set) => ({
       return { accessToken, refreshToken }
     }),
   setTokens: (payload) =>
-    set((state) => ({
-      accessToken: payload.accessToken ?? state.accessToken,
-      refreshToken: payload.refreshToken ?? state.refreshToken,
-    })),
+    set((state) => {
+      const newAccessToken = payload.accessToken ?? state.accessToken
+      const newRefreshToken = payload.refreshToken ?? state.refreshToken
+
+      if (payload.accessToken) {
+        window.localStorage.setItem(
+          Enums.LocalStorageKey.AccessToken,
+          payload.accessToken,
+        )
+      }
+      if (payload.refreshToken) {
+        window.localStorage.setItem(
+          Enums.LocalStorageKey.RefreshToken,
+          payload.refreshToken,
+        )
+      }
+
+      return {
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+      }
+    }),
   resetTokens: () =>
     set(() => {
       window.localStorage.clear()

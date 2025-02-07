@@ -1,4 +1,5 @@
-import { BotUi } from '@units/bot'
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { BotService, BotUi } from '@units/bot'
 import clsx from 'clsx'
 import { mockCards } from './mock'
 
@@ -8,6 +9,10 @@ interface Props extends React.ComponentPropsWithoutRef<'div'> {
 
 export function BotsList(props: Props) {
   const { className, ...otherProps } = props
+
+  const botsQuery = useInfiniteQuery(BotService.Queries.getBotsInfinityOptions())
+
+  console.log(botsQuery.data)
 
   return (
     <div
