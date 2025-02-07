@@ -1,17 +1,36 @@
 import { Enums } from '@shared/lib'
+import { jwtDecode } from 'jwt-decode'
 import { create } from 'zustand'
 
 type AuthStore = {
   accessToken: string | null
   refreshToken: string | null
+  isAuth: boolean
   setupTokens: () => void
   setTokens: (payload: { accessToken?: string; refreshToken?: string }) => void
   resetTokens: () => void
+  checkIsAuth: () => boolean
+  setIsAuth: (param: boolean) => void
 }
 
 export const useAuthStore = create<AuthStore>()((set) => ({
   accessToken: null,
   refreshToken: null,
+  isAuth: false,
+
+  checkIsAuth: () => {
+    const { accessToken } = useAuthStore.getState()
+    if (!accessToken) return false
+
+    try {
+      const decoded: { exp: number } = jwtDecode(accessToken)
+      const currentTime = Math.floor(Date.now() / 1000)
+      return decoded.exp > currentTime
+    } catch (e) {
+      return false
+    }
+  },
+  setIsAuth: (isAuth) => set(() => ({ isAuth })),
   setupTokens: () =>
     set(() => {
       const accessToken = window.localStorage.getItem(Enums.LocalStorageKey.AccessToken)

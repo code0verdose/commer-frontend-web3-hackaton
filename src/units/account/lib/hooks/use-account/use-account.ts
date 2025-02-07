@@ -8,9 +8,10 @@ export const useAccount = () => {
   }
 
   const handleSignIn = async (address: `0x${string}`, signature: string) => {
-    const { data: tokensData } = await AccountService.Queries.signIn(address, signature)
+    const { data: tokensData } = await AccountService.Mutations.signIn(address, signature)
     if (tokensData.accessToken && tokensData.refreshToken) {
       SharedService.Stores.useAuthStore.getState().setTokens(tokensData)
+      SharedService.Stores.useAuthStore.getState().setIsAuth(true)
     }
     return tokensData
   }

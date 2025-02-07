@@ -28,7 +28,7 @@ export function BotSettingsForm(props: Props) {
         name: '',
         description: '',
         serverId: '',
-        contractAddress: '',
+        // contractAddress: '',
         // systemPrompt: '',
         // knowledgeBase: [],
       },
