@@ -1,9 +1,12 @@
 import { createConfig, http } from 'wagmi'
-import { baseSepolia, base } from 'wagmi/chains'
+import { base, baseSepolia } from 'wagmi/chains'
 import { metaMask } from 'wagmi/connectors'
 
+const chains =
+  process.env.NODE_ENV === 'production' ? ([base] as const) : ([baseSepolia] as const)
+
 export const wagmiConfig = createConfig({
-  chains: [baseSepolia, base],
+  chains,
   connectors: [metaMask()],
   transports: {
     [base.id]: http(),
