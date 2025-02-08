@@ -24,9 +24,6 @@ export function Header(props: Props) {
     >
       <Logo />
       <div className="flex items-center gap-x-4">
-        {/* {isConnected && (
-          <p className="text-brand">{Web3Lib.Utils.shortenAddress(address)}</p>
-        )} */}
         <SharedUi.Button
           onClick={isConnected ? disconnect : connect}
           className="button-gradient group min-w-40 rounded-xl px-4 py-3 leading-tight hover:opacity-90"
