@@ -1,4 +1,3 @@
-
 export interface CreateBotDto {
   serverId: string
   name: string
@@ -6,14 +5,26 @@ export interface CreateBotDto {
   contractAddress?: string
 }
 
-export interface BotDto {
+export interface BotsDto {
   id: string
   name: string
   description: string
   status: number
+  contractAddress?: string
+}
+
+export interface BotDto {
+  id: string
+  name: string
+  description: string
+  contractAddress: string | null
+  status: number
+  createdAt: string
+  updatedAt: string
 }
 
 export interface UpdateBotDto {
   name?: string
   description?: string
+  contractAddress?: string
 }

@@ -18,6 +18,8 @@ interface Props extends React.ComponentPropsWithoutRef<'div'> {
 export function BotsList(props: Props) {
   const { className, ...otherProps } = props
 
+  const { setBotSettings, botSettings } = BotService.Stores.useBotSettingsStore()
+
   const { isConnected } = Web3Lib.Hooks.useWallet()
   const { isAuth } = SharedService.Stores.useAuthStore.getState()
 
@@ -44,6 +46,10 @@ export function BotsList(props: Props) {
       {botsQuery.isLoading && <SkeletonList />}
       {botsQuery.data?.items.map((card) => (
         <BotUi.Card
+          isSelected={card.id === botSettings?.id}
+          onClick={() => {
+            setBotSettings(card)
+          }}
           key={card.id}
           title={card.name}
           status={BOT_STATUS_MAP[card.status as keyof typeof BOT_STATUS_MAP]}

@@ -26,13 +26,13 @@ export class BotControllerApi {
 
   async getBots(params?: { limit: number; offset: number }): Promise<
     SharedTypes.BaseApiResponse<{
-      items: BotTypes.Dto.BotDto[]
+      items: BotTypes.Dto.BotsDto[]
       totalItems: number
     }>
   > {
     const response = await this.api.get<
       SharedTypes.BaseApiResponse<{
-        items: BotTypes.Dto.BotDto[]
+        items: BotTypes.Dto.BotsDto[]
         totalItems: number
       }>
     >(this.basePath, { params })
