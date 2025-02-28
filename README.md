@@ -17,8 +17,8 @@ Unistory React Hackathon Project — это проект, разработанн
 
 ### 1. Клонирование репозитория
 ```sh
-git clone https://github.com/Unistory/unistory-react-hackathon.git
-cd unistory-react-hackathon
+git clone https://github.com/code0verdose/commer-frontend-web3-hackaton.git
+cd commer-frontend-web3-hackaton
 ```
 
 ### 2. Установка зависимостей
